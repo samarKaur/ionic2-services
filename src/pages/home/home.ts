@@ -1,20 +1,26 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ExampleService } from '../../app/example.service';
+import {UserService} from '../../providers/people-service/people-service';
 
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [ExampleService]
+  
+  providers: [UserService]
+  
 })
 export class HomePage {
 
- title: string;
-  constructor(public navCtrl: NavController,private _exampleService: ExampleService) {
+  constructor(public navCtrl: NavController,private userService: UserService) {
+   
   }
-  ngOnInit() {
-        this.title = this._exampleService.someMethod();
-    }
+   
+   profile = {};
+
+  loadUser() {
+    this.userService.getUser().subscribe(data => this.profile = data);
+  }
+    
 
 }
